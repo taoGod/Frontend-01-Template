@@ -1,0 +1,67 @@
+<script>
+
+  function converStringToNumber(str, type, verify) {
+    if (verify && !str || typeof str !== 'string') {
+      throw new Error('请输入正确的字符！')
+    }
+
+    const zeroCode = '0'.codePointAt();
+    let arr = str.split('');
+    let isNegative = arr[0] === '-';
+    if (arr[0] === '+' || arr[0] === '-') {
+      arr.shift();
+    }
+
+    let num = 0;
+    let decimalPointIndex = -1; // 小数点在字符串中的索引
+    for (let i = 0; i < arr.length; i++) {
+      const ch = arr[i];
+      if (ch === '.') {
+        decimalPointIndex = i;
+        continue;
+      }
+
+      let n = ch.codePointAt() - zeroCode;
+      if (verify && n < 0 || n > 9) {
+        throw new Error('不是合法的十进制数！')
+      }
+      num *= type;
+      num += n;
+    }
+
+    if (decimalPointIndex > -1) {
+      num /= (Math.pow(type, arr.length - decimalPointIndex - 1));
+    }
+
+    return isNegative ? (0 - num) : num;
+  }
+
+  console.log(converStringToNumber('2.33', 10));
+
+  function converNumberToString(number, type, verify) {
+    if (arguments.length < 2) {
+      type = 10;
+    }
+    let integer = Math.floor(number);
+    const fractionPos = ('' + number).indexOf('.');
+    let fractionLength = ('' + number).length - fractionPos - 1;
+    let fraction = (number - integer).toFixed(fractionLength);
+    let str = '';
+    while (integer > 0) {
+      str = integer % type + str;
+      integer = Math.floor(integer / type);
+    }
+    if (fractionPos > -1) {
+      str += '.';
+      while (fractionLength > 0) {
+        fraction *= type;
+        str += Math.floor(fraction % type);
+        fractionLength--;
+      }
+    }
+    return str;
+  }
+
+  console.log(converNumberToString(12.33234, 10));
+
+</script>

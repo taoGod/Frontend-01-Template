@@ -20,7 +20,7 @@
 
 * 追溯
 
-  不知道就问呗，通过已知线索查找呗。
+  通过已知线索查找呗，实在不知道就问呗。
 
   权威网站：
 
@@ -35,6 +35,8 @@
   * [https://developer.apple.com](https://developer.apple.com)
 
   * [https://developer.mozilla.org](https://developer.mozilla.org)
+
+  * [https://whatwg.org/](https://whatwg.org/)
 
 ## 前端知识体系
 
